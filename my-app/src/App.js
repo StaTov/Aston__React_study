@@ -31,23 +31,25 @@ class App extends Component {
     alert(`данные: "${this.state.value}" отправлены на сервер`)
     this.setState({value: ''})
   }
+
   componentDidMount() {
     console.log('componentDidMount--')
   }
 
-  componentDidUpdate() {
+  componentDidUpdate(prevProps, prevState, prevContext) {
     console.log('componentDidUpdate--')
   }
 
-  static getDerivedStateFromPros() {
-    console.log(' getDerivedStateFromProps--')
+  static getDerivedStateFromProps(nextProps, prevState) {
+    console.log( `getDerivedStateFromProps--`)
+    return null
   }
 
-  static getDerivedStateFromError() {
-    console.log(' getDerivedStateFromError--')
+  static getDerivedStateFromError(error) {
+    console.log(`${error} getDerivedStateFromError--`)
   }
 
-  componentDidCatch() {
+  componentDidCatch(errorString, errorInfo) {
     console.log('componentDidCatch--')
   }
 
@@ -60,7 +62,7 @@ class App extends Component {
     console.log('componentWillUnmount--')
   }
 
-  shouldComponentUpdate() {
+  shouldComponentUpdate(nextProps, nextState, nextContext) {
     console.log('shouldComponentUpdate--')
     return true
   }
