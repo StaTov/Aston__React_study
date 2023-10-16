@@ -1,22 +1,36 @@
 import { Component } from "react";
-import ShowValue from "./components/ShowValue";
+import MyList from "./components/MyList";
 
 
 class App extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      value: ''
+      value: '',
+      isVisible: false
     }
 
-    this.showValue = this.showValue.bind(this)
+    this.handleChange = this.handleChange.bind(this)
+    this.handleFocus = this.handleFocus.bind(this)
+    this.handleSubmit = this.handleSubmit.bind(this)
+  }
+  handleFocus() {
+    this.ref.focus()
   }
 
-  showValue() {
-    const data = this.input.value
-    this.setState(prevState => ({ value: data }))
+  handleChange({ target }) {
+
+    this.setState({ value: target.value })
+    target.value.split(' ').includes('реакт')
+      ? this.setState({ isVisible: true })
+      : this.setState({ isVisible: false })
   }
 
+  handleSubmit(e) {
+    e.preventDefault()
+    alert(`данные: "${this.state.value}" отправлены на сервер`)
+    this.setState({value: ''})
+  }
   componentDidMount() {
     console.log('componentDidMount--')
   }
@@ -45,7 +59,7 @@ class App extends Component {
   componentWillUnmount() {
     console.log('componentWillUnmount--')
   }
-  
+
   shouldComponentUpdate() {
     console.log('shouldComponentUpdate--')
     return true
@@ -56,15 +70,25 @@ class App extends Component {
     return (
       <>
         <div>
-          <input ref={(input => this.input = input)} />
-          <button onClick={this.showValue}>show_value</button>
+          <input
+            ref={input => this.ref = input}
+            value={this.state.value}
+            onChange={this.handleChange}
+          />
+          <button
+            disabled={this.state.isVisible}
+            onClick={this.handleSubmit}>
+            submit
+          </button>
+          <button
+            onClick={this.handleFocus}>
+            onFocus
+          </button>
         </div>
-        <ShowValue value={this.state.value} />
+        <MyList />
       </>
     )
   }
-
-
 }
 
 export default App;
