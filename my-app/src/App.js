@@ -21,19 +21,20 @@ class App extends Component {
     console.log('componentDidMount--')
   }
 
-  componentDidUpdate() {
+  componentDidUpdate(prevProps, prevState, snapshot) {
     console.log('componentDidUpdate--')
   }
 
-  static getDerivedStateFromPros() {
+  static getDerivedStateFromProps(nextProps, prevState) {
     console.log(' getDerivedStateFromProps--')
+    return null
   }
 
-  static getDerivedStateFromError() {
-    console.log(' getDerivedStateFromError--')
+  static getDerivedStateFromError(error) {
+    console.log(`${error} getDerivedStateFromError--`)
   }
 
-  componentDidCatch() {
+  componentDidCatch(errorStr, info) {
     console.log('componentDidCatch--')
   }
 
@@ -45,8 +46,8 @@ class App extends Component {
   componentWillUnmount() {
     console.log('componentWillUnmount--')
   }
-  
-  shouldComponentUpdate() {
+
+  shouldComponentUpdate(nextProps, nextState) {
     console.log('shouldComponentUpdate--')
     return true
   }
@@ -63,8 +64,6 @@ class App extends Component {
       </>
     )
   }
-
-
 }
 
 export default App;
